@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 import './WeddingInvitation.css'; // Archivo CSS para estilos
 import backgroundVideo from './assets/Invitación Vertical Boda Floral Rojo y Dorado .mp4';
 import anillosDeBoda from './assets/anillosDeBoda.png';
@@ -8,11 +9,12 @@ import musica from './assets/art-of-samples-buzz-120-bpm-audio-logo-245396.mp3';
 
 const WeddingInvitation = () => {
   const [showModal, setShowModal] = useState(false);
-  const [guestName, setGuestName] = useState('');
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false); // Nuevo estado
+  const [guestNames, setGuestNames] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [state, handleSubmit] = useForm("xjkkqzzp");
   const audioRef = useRef(new Audio(musica));
-
-  const [maxAmountOfGuests, setMaxAmountOfGuests] = useState(0);
+  const [maxAmountOfGuests, setMaxAmountOfGuests] = useState([]);
 
   const phrasesToGuests = {
     "te-esperamos-en-nuestra-boda": 1,
@@ -24,9 +26,7 @@ const WeddingInvitation = () => {
 
   useEffect(() => {
     const path = window.location.pathname.split('/').pop();
-    console.log(path);
     const numberOfGuests = phrasesToGuests[path] || 1;
-    console.log(numberOfGuests);
     setMaxAmountOfGuests(Array(numberOfGuests).fill(""));
   }, []);
 
@@ -41,26 +41,32 @@ const WeddingInvitation = () => {
 
   const handleModal = () => {
     setShowModal(!showModal);
-    setGuestName('');
+    setGuestNames([]);
   };
 
   const handleInputChange = (event, index) => {
-    const updatedGuestNames = [...guestName];
+    const updatedGuestNames = [...guestNames];
     updatedGuestNames[index] = event.target.value;
-    setGuestName(updatedGuestNames);
+    setGuestNames(updatedGuestNames);
   };
 
-  const handleFormSubmit = (event) => {
+  const sendEmail = (event) => {
     event.preventDefault();
-    console.log('Confirmado para:', guestName);
+
+    const message = `Felicidades Lucho, las siguientes personas han confirmado asistencia a tu boda: ${guestNames.join(', ')}.`;
+    const emailData = new FormData();
+    emailData.append("email", "felipelaezhenao@gmail.com"); // Reemplazar con el email del destinatario
+    emailData.append("message", message);
+
+    handleSubmit(emailData);
     setShowModal(false);
-    setGuestName('');
+    setShowConfirmationPopup(true); // Mostrar el popup de confirmación
   };
 
   useEffect(() => {
-    console.log(guestName)
-  }, [guestName])
-
+    console.log(guestNames)
+  }, [guestNames])
+  
   return (
     <div className="invitation-card">
       {/* Video de fondo */}
@@ -302,7 +308,7 @@ const WeddingInvitation = () => {
         {showModal && (
           <div className="modal">
             <div className="modal-content">
-              <form onSubmit={handleFormSubmit}>
+              <form onSubmit={sendEmail}>
                 {maxAmountOfGuests.map((_, index) => (
                   <div key={index} style={{ marginBottom: '10px' }}>
                     <label>
@@ -310,29 +316,43 @@ const WeddingInvitation = () => {
                     </label>
                     <input
                       type="text"
-                      value={guestName[index] || ''} // Asegúrate de manejar un array de nombres
-                      onChange={(e) => handleInputChange(e, index)} // Pasa el índice para identificar el input
+                      value={guestNames[index] || ''}
+                      onChange={(e) => handleInputChange(e, index)}
                       style={{ marginLeft: '10px' }}
                     />
                   </div>
                 ))}
-                <div
-                  style={{
-                    marginTop: '10px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                  }}
-                >
-                  <button type="submit">Confirmar</button>
+                <div style={{
+                  marginTop: '10px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}>
+                  <button type="submit" disabled={state.submitting}>
+                    Confirmar
+                  </button>
                   <button style={{ backgroundColor: "#781313" }} onClick={() => handleModal(false)}>
                     Cancelar
                   </button>
                 </div>
               </form>
+              {state.succeeded && <p>¡Confirmación enviada!</p>}
             </div>
           </div>
         )}
+
+
+        {/* Popup de confirmación adicional */}
+        {showConfirmationPopup && (
+          <div className="confirmation-popup">
+            <div className="popup-content">
+              <h2>¡Felicidades!</h2>
+              <p>Has confirmado tu asistencia a nuestra boda. ¡Nos vemos pronto!</p>
+              <button onClick={() => setShowConfirmationPopup(false)}>Cerrar</button>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

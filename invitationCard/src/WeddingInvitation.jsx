@@ -66,7 +66,7 @@ const WeddingInvitation = () => {
   useEffect(() => {
     console.log(guestNames)
   }, [guestNames])
-  
+
   return (
     <div className="invitation-card">
       {/* Video de fondo */}
@@ -113,6 +113,9 @@ const WeddingInvitation = () => {
             color: '#9f7a3d',
             fontFamily: 'Parisienne',
             marginBottom: '0px',
+            textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)',
+            fontWeight: "500",
+            marginTop:"0px"
           }}
         >
           Nos Casamos
@@ -121,8 +124,10 @@ const WeddingInvitation = () => {
           style={{
             color: '#781313',
             fontFamily: 'Parisienne',
-            marginTop: '15px',
+            marginTop: '5px',
             marginBottom: '10px',
+            textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)',
+            fontWeight: "500"
           }}
           className='nombres'
         >
@@ -141,8 +146,8 @@ const WeddingInvitation = () => {
             position: "relative",
             left: "50%",
             transform: "translate(-50%)",
-            height: "75px"
           }}
+          className='datesContainer'
         >
           {/* Contenedor para SÁBADO */}
           <div
@@ -154,13 +159,7 @@ const WeddingInvitation = () => {
             }}
           >
             <hr
-              style={{
-                border: 'none', // Quita el borde predeterminado
-                height: '2px', // Define el grosor del "borde"
-                width: '160px', // Define el ancho
-                background: 'linear-gradient(to right, #faebb2, #907353', // Degradado
-                margin: 0, // Elimina márgenes
-              }}
+              className='lineas'
             />
 
             <p
@@ -176,13 +175,7 @@ const WeddingInvitation = () => {
               SÁBADO
             </p>
             <hr
-              style={{
-                border: 'none', // Quita el borde predeterminado
-                height: '2px', // Define el grosor del "borde"
-                width: '160px', // Define el ancho
-                background: 'linear-gradient(to right, #faebb2, #907353', // Degradado
-                margin: 0, // Elimina márgenes
-              }}
+              className='lineas'
             />
           </div>
 
@@ -212,13 +205,7 @@ const WeddingInvitation = () => {
             }}
           >
             <hr
-              style={{
-                border: 'none', // Quita el borde predeterminado
-                height: '2px', // Define el grosor del "borde"
-                width: '160px', // Define el ancho
-                background: 'linear-gradient(to right, #faebb2, #907353', // Degradado
-                margin: 0, // Elimina márgenes
-              }}
+              className='lineas'
             />
             <p
               style={{
@@ -233,13 +220,7 @@ const WeddingInvitation = () => {
               A LAS 21:00
             </p>
             <hr
-              style={{
-                border: 'none', // Quita el borde predeterminado
-                height: '2px', // Define el grosor del "borde"
-                width: '160px', // Define el ancho
-                background: 'linear-gradient(to right, #faebb2, #907353', // Degradado
-                margin: 0, // Elimina márgenes
-              }}
+              className='lineas'
             />
           </div>
         </div>
@@ -250,6 +231,7 @@ const WeddingInvitation = () => {
             fontFamily: 'Cormorant Garamond',
             fontWeight: '700',
           }}
+          className='addressText'
         >
           Laprida 2482, Cruz de Piedra
         </p>
@@ -259,18 +241,19 @@ const WeddingInvitation = () => {
             fontFamily: 'Cormorant Garamond',
             fontWeight: '700',
           }}
+          className='descriptionText'
         >
           Llegó el día de nuestra boda, estamos muy felices de compartirlo con ustedes.
         </p>
         <p
           style={{
             color: '#9f7a3d',
-            maxWidth: '60%',
             margin: '0 auto',
             fontFamily: 'Cormorant Garamond',
             fontWeight: '700',
             fontStyle: 'italic',
           }}
+          className='helpText'
         >
           Si quieres ayudarnos pero no sabes cómo, ¡puedes hacerlo contribuyendo
           con nuestra luna de miel!
@@ -290,11 +273,10 @@ const WeddingInvitation = () => {
         <p
           style={{
             color: '#9f7a3d',
-            fontSize: '1.5em',
             fontFamily: 'Parisienne',
-            fontSize: '35px',
             margin: '0px',
           }}
+          className='teEsperamosText'
         >
           ¡Te esperamos!
         </p>

@@ -1,10 +1,28 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #333;
+  margin: 0px;
+
+  /*
+  height: 100vh;
+  overflow: hidden;*/
+}
+
+#root {
+  padding: 0px;
 }
 
 .invitation-card {
     position: relative;
-    width: 600px;
+    width: 30vw;
     height: auto;
     overflow: hidden; /* Para que el video no se desborde */
     display: flex;
@@ -13,6 +31,8 @@ body {
     position: relative;
     left: 50%;
     transform: translate(-50%);
+    height: 100%;
+    max-height: 100vh;
   }
   
   .background-video {
@@ -38,6 +58,10 @@ body {
     width: 30vh;
   }
 
+  .datesContainer {
+    height: 8vh;
+  }
+
   .fechaHoraTexto {
     font-size: 2.5vh;
   }
@@ -45,15 +69,39 @@ body {
   .dateTexto {
     font-size: 8vh;
   }
+
+  .lineas {
+    border: none;
+    height: 2px;
+    width: 10vw; 
+    background: linear-gradient(to right, #faebb2, #907353);
+    margin: 0;
+  }
   
   .content {
     position: relative; /* Importante para que el contenido esté encima del video */
     text-align: center;
     color: #333;
-    padding: 20px;
+    padding: 0px 20px;
     border-radius: 10px;
     width: 80%;
-    max-width: 600px; /* Ajusta según lo que necesites */
+    height: 95% !important;
+  }
+
+  .teEsperamosText {
+    font-size: 5.5vh;
+  }
+
+  .addressText {
+    font-size: 2.3vh;
+  }
+
+  .descriptionText {
+    font-size: 2.3vh;
+  }
+
+  .helpText {
+    font-size: 2.3vh;
   }
   
   .confirm-button {
@@ -114,6 +162,7 @@ body {
   .paymentButton {
     outline: none !important;
     margin-top: 2vh;
+    padding: 1vh;
   }
 
   .confirmation-popup {
@@ -163,8 +212,61 @@ body {
   
 
   @media(max-width: 600px) {
+
     .invitation-card {
       margin: 0px;
-      width: 90vw;
+      width: 95vw;
     }
+
+    h1 {
+      font-size: 4vh;
+    }
+  
+    .nombres {
+      font-size: 6vh;
+    }
+  
+    .imagenAnillos {
+      width: 25vh;
+    }
+  
+    .datesContainer {
+      height: 8vh;
+    }
+  
+    .fechaHoraTexto {
+      font-size: 2.5vh;
+    }
+  
+    .dateTexto {
+      font-size: 8vh;
+    }
+  
+    .lineas {
+      width: 30vw; 
+    }
+
+    .teEsperamosText {
+      font-size: 5.5vh;
+    }
+  
+    .addressText {
+      font-size: 2.3vh;
+    }
+  
+    .descriptionText {
+      font-size: 2vh;
+    }
+  
+    .helpText {
+      font-size: 2.3vh;
+    }
+
+    .content {
+      padding: 20px 20px;
+      border-radius: 10px;
+      width: 80%;
+      height: 95% !important;
+    }
+
   }

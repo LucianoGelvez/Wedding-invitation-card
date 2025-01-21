@@ -190,7 +190,7 @@ const WeddingInvitation = () => {
                   >
                     29
                   </p>
-                  <p style={{ color: '#781313', fontSize: "13px", fontFamily: 'Nunito', textShadow: "none", fontWeight: "700", margin: "0px" }}>MARZO</p>
+                  <p style={{ color: '#781313', fontSize: "13px", fontFamily: 'Nunito', textShadow: "none", fontWeight: "700", margin: "0px" }}>DE MARZO</p>
                 </div>
 
                 <div

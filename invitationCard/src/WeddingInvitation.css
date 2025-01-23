@@ -377,10 +377,12 @@ h1 {
   }
 
   .valueText {
+    position: relative !important;
+    width: 40vw;
     margin-top: 2vh;
     padding: 0.5vh;
-    bottom: 6.5vh;
-    left: -20px;
+    bottom: 0px;
+    left: -40px;
   }
   
 }

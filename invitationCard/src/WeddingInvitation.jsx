@@ -145,8 +145,8 @@ const WeddingInvitation = () => {
                 src={isPlaying ? sonidoOn : sonidoOff}
                 alt="Control de sonido"
                 style={{
-                  width: '30px',
-                  height: '30px',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: "1000px",
                   border: '1px solid #781313',
                 }}
@@ -156,7 +156,7 @@ const WeddingInvitation = () => {
             <div className="content">
               <h1
                 style={{
-                  color: '#9f7a3d',
+                  color: '#781313',
                   fontFamily: 'Parisienne',
                   marginBottom: '0px',
                   textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)',
@@ -168,7 +168,7 @@ const WeddingInvitation = () => {
               </h1>
               <h2
                 style={{
-                  color: '#781313',
+                  color: '#9f7a3d',
                   fontFamily: 'Parisienne',
                   marginTop: '5px',
                   marginBottom: '10px',

@@ -2,11 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import './WeddingInvitation.css';
 import backgroundVideo from './assets/Invitación Vertical Boda Floral Rojo y Dorado .mp4';
-import backgroundImage from './assets/Invitación Vertical Boda Floral Rojo y Dorado.png';
 import anillosDeBoda from './assets/anillosDeBoda.png';
 import sonidoOff from './assets/sound-min-svgrepo-com.svg';
 import sonidoOn from './assets/sound-max-svgrepo-com.svg';
-import musica from './assets/art-of-samples-buzz-120-bpm-audio-logo-245396.mp3';
+import musica from './assets/AerosmithIDontWantToMissAThingSubEspañol.mp3';
 import logoMercadoPago from './assets/logoMercadoPago.png';
 
 
@@ -19,7 +18,6 @@ const WeddingInvitation = () => {
   const audioRef = useRef(new Audio(musica));
   const [maxAmountOfGuests, setMaxAmountOfGuests] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const phrasesToGuests = {
     "te-esperamos-en-nuestra-boda": 1,
@@ -72,10 +70,31 @@ const WeddingInvitation = () => {
     setShowConfirmationPopup(true);
   };
 
+  const handleConfirmAssistance = () => {
+    const path = window.location.pathname;
+    if (path === '/' || path === '') {
+      const mensaje = "Hola, confirmo que las siguientes personas asistirán a la boda: ";
+      const numeroTelefono = '+5492613677103';
+
+      // Codifica el mensaje para que sea seguro en la URL
+      const mensajeCodificado = encodeURIComponent(mensaje);
+
+      // Construye la URL de WhatsApp con el mensaje predefinido
+      const urlWhatsApp = `https://wa.me/${numeroTelefono}?text=${mensajeCodificado}`;
+
+      // Abre la URL en una nueva pestaña
+      window.open(urlWhatsApp, '_blank');
+    } else {
+      setShowModal(true);
+      setGuestNames([]);
+    }
+  };
+
+
   return (
     <div className={`invitation-container ${isFlipped ? 'flipped' : ''}`}>
       <div className="invitation-inner">
-        <div className="invitation-front">  
+        <div className="invitation-front">
           <div className="invitation-card">
             <video autoPlay loop muted className="background-video">
               <source src={backgroundVideo} type="video/mp4" />
@@ -249,7 +268,7 @@ const WeddingInvitation = () => {
                 ¡Te esperamos!
               </p>
               <button
-                onClick={() => setShowModal(true)}
+                onClick={handleConfirmAssistance}
                 className="confirm-button"
               >
                 Confirmar asistencia

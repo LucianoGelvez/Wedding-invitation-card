@@ -2,11 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import './WeddingInvitation.css';
 import backgroundVideo from './assets/Invitación Vertical Boda Floral Rojo y Dorado .mp4';
+import backgroundImage from './assets/Invitación Vertical Boda Floral Rojo y Dorado.png';
 import anillosDeBoda from './assets/anillosDeBoda.png';
 import sonidoOff from './assets/sound-min-svgrepo-com.svg';
 import sonidoOn from './assets/sound-max-svgrepo-com.svg';
 import musica from './assets/AerosmithIDontWantToMissAThingSubEspañol.mp3';
 import logoMercadoPago from './assets/logoMercadoPago.png';
+import iconoCorazon from './assets/iconoCorazon.svg';
 
 
 const WeddingInvitation = () => {
@@ -18,19 +20,28 @@ const WeddingInvitation = () => {
   const audioRef = useRef(new Audio(musica));
   const [maxAmountOfGuests, setMaxAmountOfGuests] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
+  /*Estado para reconocer si hay un path "queremos-verte-alli" */
+  const [hasCustomPath, setHasCustomPath] = useState(false);
 
   const phrasesToGuests = {
     "te-esperamos-en-nuestra-boda": 1,
     "celebra-nuestro-amor": 2,
     "acompananos-en-este-dia-especial": 3,
     "se-parte-de-nuestra-historia": 4,
-    "comparte-nuestra-felicidad": 5
+    "comparte-nuestra-felicidad": 5,
+    "queremos-verte-alli": 6 // Path para activar WhatsApp y mensaje de valor de 30 mil
   };
 
   useEffect(() => {
-    const path = window.location.pathname.split('/').pop();
+    const path = window.location.pathname.split('/')[1]; // Get first segment after the initial slash
     const numberOfGuests = phrasesToGuests[path] || 1;
     setMaxAmountOfGuests(Array(numberOfGuests).fill(""));
+
+    if (path === "queremos-verte-alli") {
+      setHasCustomPath(true);
+    } else {
+      setHasCustomPath(false);
+    }
   }, []);
 
   const toggleSound = () => {
@@ -71,8 +82,7 @@ const WeddingInvitation = () => {
   };
 
   const handleConfirmAssistance = () => {
-    const path = window.location.pathname;
-    if (path === '/' || path === '') {
+    if (hasCustomPath) {
       const mensaje = "Hola, confirmo que las siguientes personas asistirán a la boda: ";
       const numeroTelefono = '+5492613677103';
 
@@ -84,7 +94,20 @@ const WeddingInvitation = () => {
 
       // Abre la URL en una nueva pestaña
       window.open(urlWhatsApp, '_blank');
-    } else {
+    } else if (window.location.pathname === '/' || window.location.pathname === '') {
+      const mensaje = "Hola, confirmo que las siguientes personas asistirán a la boda: ";
+      const numeroTelefono = '+5492613677103';
+
+      // Codifica el mensaje para que sea seguro en la URL
+      const mensajeCodificado = encodeURIComponent(mensaje);
+
+      // Construye la URL de WhatsApp con el mensaje predefinido
+      const urlWhatsApp = `https://wa.me/${numeroTelefono}?text=${mensajeCodificado}`;
+
+      // Abre la URL en una nueva pestaña
+      window.open(urlWhatsApp, '_blank');
+    }
+    else {
       setShowModal(true);
       setGuestNames([]);
     }
@@ -273,6 +296,31 @@ const WeddingInvitation = () => {
               >
                 Confirmar asistencia
               </button>
+              {hasCustomPath && (
+                <div
+                  className='valueText'
+                  style={{
+                    color: '#9f7a3d',
+                    border: '1px solid #9f7a3d',
+                    backgroundColor: 'white',
+                    borderRadius: "5px",
+                    position: "absolute",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div>
+                    Valor de tarjeta:
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "#781313", fontWeight: "700" }}>
+                    30 mil
+                    <img style={{ height: "20px" }} src={iconoCorazon} alt="" />
+                  </div>
+                </div>
+              )}
               <button
                 onClick={handleFlip}
                 className='paymentButton'

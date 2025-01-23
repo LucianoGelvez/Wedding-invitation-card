@@ -207,6 +207,13 @@ h1 {
   right: 0px;
 }
 
+.valueText {
+  margin-top: 2vh;
+  padding: 0.5vh;
+  bottom: -10px;
+  left: -35px;
+}
+
 .confirmation-popup {
   position: fixed;
   top: 0;
@@ -367,6 +374,13 @@ h1 {
     padding: 0.5vh;
     bottom: 8vh;
     right: 0px;
+  }
+
+  .valueText {
+    margin-top: 2vh;
+    padding: 0.5vh;
+    bottom: 6.5vh;
+    left: -20px;
   }
   
 }
